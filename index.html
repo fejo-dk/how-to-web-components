@@ -54,12 +54,16 @@
 
 		constructor($el) {
 			console.log($el);
-			$el.click(this.onClick);
+
+			this.$el = $el;
+
+			$el.click(this.onClick.bind(this));
 		}
 
 		onClick(ev) {
 			console.log("[CLICK]", $(this).text());
-			$(this).toggleClass("is-selected");
+
+			this.$el.toggleClass("is-selected");
 		}
 	}
 
