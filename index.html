@@ -10,6 +10,10 @@
 	margin: 1em 0;
 	background-color: #EEE;
 }
+
+.color-box.is-selected {
+	background-color: #0F0;
+}
 	</style>
 </head>
 
@@ -55,7 +59,7 @@
 
 		onClick(ev) {
 			console.log("[CLICK]", $(this).text());
-			$(this).css("background-color", "black");
+			$(this).toggleClass("is-selected");
 		}
 	}
 
