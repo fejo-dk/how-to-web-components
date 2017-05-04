@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Test Case</title>
+	<style>
+.color-box {
+	margin: 1em 0;
+	background-color: #EEE;
+}
+	</style>
+</head>
+
+<body>
+	<div class="color-box">lorem ipsum</div>
+	<hr>
+	<div class="color-box">dolor sit amet</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+	<script>
+(function($) { // Immediately Invoked Function Expression (IIFE)
+
+	// `application.js`
+	// depends on `color_box/index.js`
+
+	initColorBoxes();
+
+
+	// `color_box/index.js`
+	// depends on `color_box/index.js`
+
+	function initColorBoxes() {
+		$(".color-box").each(function(i, node) {
+			var $el = $(node);
+			initColorBox($el);
+		});
+	}
+
+
+	// `color_box/component.js`
+
+	function initColorBox($el) {
+		console.log($el);
+		$el.click(onClick);
+	};
+
+	function onClick(ev) {
+		console.log("[CLICK]", $(this).text());
+		$(this).css("background-color", "black");
+	}
+
+}(jQuery));
+	</script>
+</body>
+
+</html>
