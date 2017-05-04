@@ -6,100 +6,27 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Test Case</title>
 	<style>
-.color-box {
+color-box {
+	display: block;
 	margin: 1em 0;
 	background-color: #EEE;
 }
 
-.color-box.is-selected {
+color-box.is-selected {
 	background-color: #0F0;
 }
 	</style>
 </head>
 
 <body>
-	<div class="color-box" data-selected>lorem ipsum</div>
+	<color-box selected>lorem ipsum</color-box>
 	<hr>
-	<div class="color-box" data-count="5">dolor sit amet</div>
+	<color-box count="5">dolor sit amet</color-box>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
 	<script>
-(function($) { // Immediately Invoked Function Expression (IIFE)
+(function() { // Immediately Invoked Function Expression (IIFE)
 
-	// `application.js`
-	// depends on `color_box/index.js`
-
-	function main() {
-		initColorBoxes();
-
-		setInterval(updateContent, 3000);
-	}
-
-	// simulate AJAX operations (e.g. pagination)
-	function updateContent() {
-		$('<div class="color-box">…</div>').appendTo(document.body);
-
-		// we need to manually re-initialize all (potential) components
-		// ⚠️ components' initialization must be idempotent
-		initColorBoxes();
-	}
-
-
-	// `color_box/index.js`
-	// depends on `color_box/index.js`
-
-	function initColorBoxes() {
-		$(ColorBox.selector).each(function(i, node) {
-			var $el = $(node);
-			new ColorBox($el);
-		});
-	}
-
-
-	// `color_box/component.js`
-
-	class ColorBox {
-		static get selector() {
-			return ".color-box";
-		}
-
-		constructor($el) {
-			console.log($el);
-
-			this.$el = $el;
-			this.count = this.initialCount;
-
-			if(this.selected) {
-				this.$el.addClass("is-selected");
-			}
-
-			$el.click(this.onClick.bind(this));
-		}
-
-		onClick(ev) {
-			this.count++;
-			console.log("[CLICK]", $(this).text(), this.count);
-
-			this.$el.toggleClass("is-selected");
-		}
-
-		get initialCount() {
-			// NB: attribute is a string, property an integer
-			var value = this.$el.attr("data-count");
-			return value ? parseInt(value, 10) : 0;
-		}
-
-		get selected() {
-			// NB: attribute is a string, property a boolean
-			return this.$el.attr("data-selected") === "true";
-		}
-	}
-
-
-	// required due to lack of class hoisting
-	main();
-
-}(jQuery));
+}());
 	</script>
 </body>
 
