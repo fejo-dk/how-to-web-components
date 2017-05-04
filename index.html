@@ -56,12 +56,14 @@
 			console.log($el);
 
 			this.$el = $el;
+			this.count = 0;
 
 			$el.click(this.onClick.bind(this));
 		}
 
 		onClick(ev) {
-			console.log("[CLICK]", $(this).text());
+			this.count++;
+			console.log("[CLICK]", $(this).text(), this.count);
 
 			this.$el.toggleClass("is-selected");
 		}
