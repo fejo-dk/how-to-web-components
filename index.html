@@ -25,31 +25,43 @@
 	// `application.js`
 	// depends on `color_box/index.js`
 
-	initColorBoxes();
+	function main() {
+		initColorBoxes();
+	}
 
 
 	// `color_box/index.js`
 	// depends on `color_box/index.js`
 
 	function initColorBoxes() {
-		$(".color-box").each(function(i, node) {
+		$(ColorBox.selector).each(function(i, node) {
 			var $el = $(node);
-			initColorBox($el);
+			new ColorBox($el);
 		});
 	}
 
 
 	// `color_box/component.js`
 
-	function initColorBox($el) {
-		console.log($el);
-		$el.click(onClick);
-	};
+	class ColorBox {
+		static get selector() {
+			return ".color-box";
+		}
 
-	function onClick(ev) {
-		console.log("[CLICK]", $(this).text());
-		$(this).css("background-color", "black");
+		constructor($el) {
+			console.log($el);
+			$el.click(this.onClick);
+		}
+
+		onClick(ev) {
+			console.log("[CLICK]", $(this).text());
+			$(this).css("background-color", "black");
+		}
 	}
+
+
+	// required due to lack of class hoisting
+	main();
 
 }(jQuery));
 	</script>
