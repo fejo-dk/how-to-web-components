@@ -18,9 +18,9 @@
 </head>
 
 <body>
-	<div class="color-box">lorem ipsum</div>
+	<div class="color-box" data-selected="true">lorem ipsum</div>
 	<hr>
-	<div class="color-box">dolor sit amet</div>
+	<div class="color-box" data-count="5">dolor sit amet</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
 	<script>
@@ -56,7 +56,11 @@
 			console.log($el);
 
 			this.$el = $el;
-			this.count = 0;
+			this.count = this.initialCount;
+
+			if(this.selected) {
+				this.$el.addClass("is-selected");
+			}
 
 			$el.click(this.onClick.bind(this));
 		}
@@ -66,6 +70,17 @@
 			console.log("[CLICK]", $(this).text(), this.count);
 
 			this.$el.toggleClass("is-selected");
+		}
+
+		get initialCount() {
+			// NB: attribute is a string, property an integer
+			var value = this.$el.attr("data-count");
+			return value ? parseInt(value, 10) : 0;
+		}
+
+		get selected() {
+			// NB: attribute is a string, property a boolean
+			return this.$el.attr("data-selected") === "true";
 		}
 	}
 
